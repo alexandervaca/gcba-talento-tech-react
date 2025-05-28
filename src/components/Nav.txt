@@ -1,0 +1,27 @@
+import React from 'react'
+import './style/Estilos.css'
+import logo from '../assets/beer-svgrepo-com.svg'
+import { Link } from 'react-router-dom'
+import Cart from './Cart'
+
+const Nav = ({ cartItems, vaciarCarrito, cartCount, isCartOpen, setCartOpen, borrarProducto }) => {
+
+  return (
+    <nav style={{ backgroundColor: '#333', color: "white", padding: "10px" }}>
+      <ul>
+        <img src={logo} width='3%' />
+        <li><Link to='/'>INICIO</Link></li>
+        <li><Link to='/products'>PRODUCTOS</Link></li>
+        <li><Link to='/about'>NOSOTROS</Link></li>
+        <li><Link to='/contact'>CONTACTO</Link></li>
+        <li className='cartNav'>CARRITO: {cartCount} 
+          <button className='btnCart' onClick={() => setCartOpen(true)}><i className="fa-solid fa-cart-shopping"></i></button>
+          <Cart vaciarCarrito={vaciarCarrito} cartItems={cartItems} isOpen={isCartOpen} onClose={() => setCartOpen(false)} 
+            borrarProducto={borrarProducto} />
+        </li>
+      </ul>
+    </nav>
+  )
+}
+
+export default Nav
