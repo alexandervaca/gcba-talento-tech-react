@@ -1,21 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/estaticos/Header';
 import Footer from '../components/estaticos/Footer';
+import NotFound from '../components/NotFound';
 import aboutImg from './../assets/home4.jpg';
 
-const About = ({
-  vaciarCarrito,
-  cartItems,
-  isCartOpen,
-  setCartOpen,
-  borrarProducto,
-}) => {
+const Nosotros = () => {
 
-  const cartCount = cartItems.length
+  const [error, setError] = useState(false)
+
+  if (error) {
+    return <NotFound/>
+  }
 
   return (
     <>
-      <Header cartItems={cartItems} borrarProducto={borrarProducto} vaciarCarrito={vaciarCarrito} />
+      <Header />
 
       <main className='container col-xxl-8 px-4 py-5'>
         <div className='row flex-lg-row-reverse align-items-center g-5 py-5'>
@@ -35,4 +34,4 @@ Somos m&aacute;s que productores: somos amantes de la buena birra, de los brindi
   );
 };
 
-export default About;
+export default Nosotros;

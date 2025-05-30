@@ -11,9 +11,6 @@ export const CartProvider = ({ children }) => {
 
   const [isCartOpen, setCartOpen] = useState(false);
 
-  const cartCount = cart.length;
-
-
   useEffect(() => {
     fetch('/data/data.json')
       .then(respuesta => respuesta.json())
@@ -75,14 +72,15 @@ export const CartProvider = ({ children }) => {
       value={{
         cart,
         productos,
+        cargando,
+        error,
+        //isCartOpen,
+        //cartCount,
         vaciarCarrito,
         handleDeleteFromCart,
-        isAuthenticated,
-        //isCartOpen,
-        cargando,
-        //cartCount,
-        error,
         handleAddToCart,
+        isAuthenticated,
+        setIsAuth
       }}>
       {children}
     </CartContext.Provider>

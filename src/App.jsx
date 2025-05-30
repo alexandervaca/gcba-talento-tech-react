@@ -1,53 +1,35 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import './App.css';
-import Home from './layout/Home';
-import Contact from './layout/Contact';
+import Inicio from './layout/Inicio';
+import Contacto from './layout/Contacto';
+import Nosotros from './layout/Nosotros';
 import NotFound from './components/NotFound';
-import Products from './layout/Products';
-import About from './layout/About';
-import ProductDetail from './components/ProductDetail';
-import RutaProtegida from './auth/RutaProtegida';
+import GaleriaProductos from './layout/GaleriaProductos';
+import DetalleProducto from './components/DetalleProducto';
 import Login from './components/Login';
-import { CartContext } from './context/CartContext';
 import Admin from './components/Admin'
+import RutaProtegida from './auth/RutaProtegida';
+
+import { CartContext } from './context/CartContext';
 
 function App() {
 
-  const { cart, productos, product, cargando, vaciarCarrito, handleAddToCart, isCartOpen, setCartOpen, handleDeleteFromCart, isAuthenticated } = useContext(CartContext);
+  const { isAuthenticated } = useContext(CartContext);
 
   return (
     <>
-    <Router>
       <Routes>
-        <Route path='/' element={<Home
-          cart={cart}
-          productos={productos}
-          vaciarCarrito={vaciarCarrito}
-          handleAddToCart={handleAddToCart}
-          isCartOpen={isCartOpen}
-          setCartOpen={setCartOpen}
-          borrarProducto={handleDeleteFromCart}
-          cargando={cargando}
-        />} />
+        <Route path='/' element={<Inicio />} />
 
-        <Route path='/productos' element={<Products
-          cart={cart}
-          productos={productos}
-          handleAddToCart={handleAddToCart}
-          borrarProducto={handleDeleteFromCart}
-          vaciarCarrito={vaciarCarrito}
-          cargando={cargando}
-        />} />
+        <Route path='/productos' element={<GaleriaProductos />} />
 
-        <Route path='/productos/:id' element={<ProductDetail cartItems={cart} vaciarCarrito={vaciarCarrito} borrarProducto={handleDeleteFromCart}/>} />
+        <Route path='/productos/:id' element={<DetalleProducto />} />
 
-        <Route path='/nosotros' element={<About cartItems={cart} vaciarCarrito={vaciarCarrito} 
-          isCartOpen={isCartOpen} setCartOpen={setCartOpen} borrarProducto={handleDeleteFromCart}/>} />
+        <Route path='/nosotros' element={<Nosotros />} />
 
-        <Route path='/contacto' element={<Contact cartItems={cart} vaciarCarrito={vaciarCarrito} 
-          isCartOpen={isCartOpen} setCartOpen={setCartOpen} borrarProducto={handleDeleteFromCart}/>} />
+        <Route path='/contacto' element={<Contacto />} />
 
         <Route path='/admin' element={<RutaProtegida isAuthenticated={isAuthenticated}> <Admin /> </RutaProtegida> } />
 
@@ -56,8 +38,6 @@ function App() {
         <Route path='*' element={<NotFound/>} />
 
       </Routes>
-    </Router>
-      
     </>
   );
 }

@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { NavLink } from 'react-router-dom'
+
 import './styleEstatico.css'
 import logo from '../../assets/beer-svgrepo-com.svg'
-import { NavLink } from 'react-router-dom'
-import Cart from '../Cart'
+import Carrito from '../Carrito'
+import { CartContext } from '../../context/CartContext'
 
-const Header = ({ cartItems, vaciarCarrito, borrarProducto }) => {
+const Header = () => {
 
   let estilos = {backgroundColor: "#333", padding: "10px", textAlign: "center", color: "white"}
 
-  const cartCount = cartItems.length
+  const { cart } = useContext(CartContext)
+  const cartCount = cart.length
   const [isCartOpen, setCartOpen] = useState(false)
 
   return (
@@ -22,9 +25,14 @@ const Header = ({ cartItems, vaciarCarrito, borrarProducto }) => {
           <li><NavLink to='/contacto' className='link'>CONTACTO</NavLink></li>
           <li className='cartNav'>CARRITO: {cartCount} 
             <button className='btnCart' onClick={() => setCartOpen(true)}><i className="fa-solid fa-cart-shopping"></i></button>
-            <Cart vaciarCarrito={vaciarCarrito} cartItems={cartItems} isOpen={isCartOpen} onClose={() => setCartOpen(false)} 
-              borrarProducto={borrarProducto} />
+            <Carrito isOpen={isCartOpen} onClose={()=> setCartOpen(false)} />
           </li>
+          <li className='btnLogin'>
+              <NavLink to='/ingreso' className='link'><i className="fa-solid fa-right-to-bracket"></i></NavLink>
+            </li>
+            <li className='btnAdmin'>
+              <NavLink to='/admin' className='link'><i className="fa-solid fa-user-tie"></i></NavLink>
+            </li>
         </ul>
       </nav>
     </header>

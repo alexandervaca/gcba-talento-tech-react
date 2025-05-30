@@ -5,9 +5,9 @@ import Header from './estaticos/Header'
 import Footer from './estaticos/Footer'
 import loading from '../assets/loading.gif'
 
-const ProductDetail = ({ cartItems, borrarProducto, vaciarCarrito }) => {
+const DetalleProducto = ({ cartItems, borrarProducto, vaciarCarrito }) => {
   const { id } = useParams()
-  const { productos} = useContext(CartContext)
+  const { productos } = useContext(CartContext)
   const producto = productos.find(producto => producto.id == id)
 
   const [error, setError] = useState(false)
@@ -26,7 +26,12 @@ const ProductDetail = ({ cartItems, borrarProducto, vaciarCarrito }) => {
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
           <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3" style={{marginTop:'auto'}}>Detalle del producto: {id}</h1>
           {
-            cargando ? <img src={loading} alt='loading' style={{ alignContent: 'left', width: '50%' }} /> :
+            cargando
+            ?
+            <div>
+              <img src={loading} alt='loading' style={{ alignContent: 'left', width: '50%' }} />
+            </div> 
+            :
             producto ? (<h2>{producto.nombre}</h2>) : (<p>Producto no encontrado</p>)
           }
         </div>
@@ -37,4 +42,4 @@ const ProductDetail = ({ cartItems, borrarProducto, vaciarCarrito }) => {
   )
 }
 
-export default ProductDetail
+export default DetalleProducto
