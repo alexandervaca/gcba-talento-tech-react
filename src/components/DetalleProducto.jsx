@@ -5,14 +5,13 @@ import Header from './estaticos/Header'
 import Footer from './estaticos/Footer'
 import loading from '../assets/loading.gif'
 
-const DetalleProducto = ({ cartItems, borrarProducto, vaciarCarrito }) => {
-  const { id } = useParams()
+const DetalleProducto = () => {
   const { productos } = useContext(CartContext)
-  const producto = productos.find(producto => producto.id == id)
-
-  const [error, setError] = useState(false)
-  //const cartCount = cart.length
   const { cargando } = useContext(CartContext)
+  const [error, setError] = useState(false)
+
+  const { id } = useParams()
+  const producto = productos.find(producto => producto.id == id)
 
   if (error) {
     return <NotFound/>
@@ -20,7 +19,7 @@ const DetalleProducto = ({ cartItems, borrarProducto, vaciarCarrito }) => {
 
   return (
     <>
-      <Header cartItems={cartItems} borrarProducto={borrarProducto} vaciarCarrito={vaciarCarrito}/>
+      <Header />
 
       <main className="container col-xxl-8 px-4 py-5">
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">

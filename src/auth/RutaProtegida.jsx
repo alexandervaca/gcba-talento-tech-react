@@ -5,7 +5,7 @@ const RutaProtegida = ({ isAuthenticated, children }) => {
   if (!isAuthenticated) {
     return <Navigate to='/ingreso' replace />
   }
-  
+
   return children
 }
 

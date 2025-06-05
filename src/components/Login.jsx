@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
 
-  const {email, setEmail,password, setPassword, handleSubmit,errors} = useAuth()
+  const {email, setEmail, password, setPassword, handleSubmit, errors} = useAuth()
 
   return (
     <form

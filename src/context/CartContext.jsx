@@ -8,6 +8,7 @@ export const CartProvider = ({ children }) => {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
   const [isAuthenticated, setIsAuth] = useState(false);
+  //const [busqueda, setBusqueda] = useState([])
 
   const [isCartOpen, setCartOpen] = useState(false);
 
@@ -26,6 +27,9 @@ export const CartProvider = ({ children }) => {
         setError(true)
       })
   }, []);
+  
+
+
 
 
   const handleAddToCart = (product) => {
@@ -36,12 +40,13 @@ export const CartProvider = ({ children }) => {
       setCart(
         cart.map((item) =>
           item.id === product.id
-            ? { ...item, cantidad: item.cantidad + 1 }
+            ? { ...item, cantidad: item.cantidad }
             : item
         )
       );
     } else {
-      setCart([...cart, product]);
+      setCart([...cart, { ...product, cantidad: product.cantidad }]);
+      toast("Wow so easy!");
     }
   };
 
@@ -50,10 +55,10 @@ export const CartProvider = ({ children }) => {
       return prevCart
         .map((item) => {
           if (item.id === product.id) {
-            if (item.quantity > 1) {
-              return { ...item, quantity: item.quantity - 1 };
+            if (item.cantidad > 1) {
+              return { ...item, cantidad: item.cantidad - 1 };
             } else {
-              return null; // Si quantity es 1, marcamos para eliminar
+              return null; // Si cantidad es 1, marcamos para eliminar
             }
           } else {
             return item; // Si no es el producto, lo dejamos igual
@@ -74,8 +79,6 @@ export const CartProvider = ({ children }) => {
         productos,
         cargando,
         error,
-        //isCartOpen,
-        //cartCount,
         vaciarCarrito,
         handleDeleteFromCart,
         handleAddToCart,

@@ -15,13 +15,13 @@ import RutaProtegida from './auth/RutaProtegida';
 import { CartContext } from './context/CartContext';
 
 function App() {
-
-  const { isAuthenticated } = useContext(CartContext);
+  const { isAuthenticated } = useContext(CartContext)
 
   return (
     <>
       <Routes>
-        <Route path='/' element={<Inicio />} />
+
+        <Route path='/' element={<Inicio/>}/>
 
         <Route path='/productos' element={<GaleriaProductos />} />
 
