@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 export const CartContext = createContext()
 
@@ -8,7 +9,7 @@ export const CartProvider = ({ children }) => {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
   const [isAuthenticated, setIsAuth] = useState(false);
-  //const [busqueda, setBusqueda] = useState([])
+  const [busqueda, setBusqueda] = useState("")
 
   const [isCartOpen, setCartOpen] = useState(false);
 
@@ -29,32 +30,32 @@ export const CartProvider = ({ children }) => {
   }, []);
   
 
+  const productosFiltrados = productos.filter((producto) => producto?.nombre.toLowerCase().includes(busqueda.toLowerCase()))
 
+  const handleAddToCart = (producto) => {
+    const productoExiste = cart.find((item) => item.id === producto.id);
 
-
-  const handleAddToCart = (product) => {
-    const productExist = cart.find((item) => item.id === product.id);
-
-    if (productExist) {
+    if (productoExiste) {
       // alert('El producto ya esta en el carrito')
       setCart(
         cart.map((item) =>
-          item.id === product.id
+          item.id === producto.id
             ? { ...item, cantidad: item.cantidad }
             : item
         )
       );
     } else {
-      setCart([...cart, { ...product, cantidad: product.cantidad }]);
-      toast("Wow so easy!");
+      toast.success(`El producto ${producto.nombre} se ha agregado al carrito`)
+      setCart([...cart, { ...producto, cantidad: producto.cantidad }]);
     }
   };
 
-  const handleDeleteFromCart = (product) => {
+  const handleDeleteFromCart = (producto) => {
+    toast.error(`El producto ${producto.nombre} se ha eliminado al carrito`)
     setCart((prevCart) => {
       return prevCart
         .map((item) => {
-          if (item.id === product.id) {
+          if (item.id === producto.id) {
             if (item.cantidad > 1) {
               return { ...item, cantidad: item.cantidad - 1 };
             } else {
@@ -69,7 +70,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const vaciarCarrito = () => {
-    setCart([]);
+    toast.error('Se ha vaciado al carrito')
+    setCart([])
   };
 
   return (
@@ -83,7 +85,8 @@ export const CartProvider = ({ children }) => {
         handleDeleteFromCart,
         handleAddToCart,
         isAuthenticated,
-        setIsAuth
+        setIsAuth,
+        productosFiltrados, busqueda, setBusqueda
       }}>
       {children}
     </CartContext.Provider>

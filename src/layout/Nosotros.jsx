@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/estaticos/Header';
 import Footer from '../components/estaticos/Footer';
-import NotFound from '../components/NotFound';
+import NotFound from './NotFound';
 import aboutImg from './../assets/home4.jpg';
 
 const Nosotros = () => {

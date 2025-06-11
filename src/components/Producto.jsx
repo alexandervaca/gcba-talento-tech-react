@@ -15,7 +15,7 @@ const Producto = ({ producto }) => {
   };
 
   const decrease = () => {
-    setCantidad(prev => (prev > 1 ? prev - 1 : prev));
+    setCantidad(prev => (prev >= 1 ? prev - 1 : prev));
   };
 
   return (

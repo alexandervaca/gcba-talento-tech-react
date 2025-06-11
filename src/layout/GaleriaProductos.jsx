@@ -3,7 +3,7 @@ import Header from '../components/estaticos/Header'
 import Footer from '../components/estaticos/Footer'
 import ListaProducto from '../components/ListaProducto'
 import loading from '../assets/loading.gif'
-import NotFound from '../components/NotFound'
+import NotFound from './NotFound'
 import { CartContext } from '../context/CartContext'
 
 const GaleriaProductos = () => {

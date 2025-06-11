@@ -1,18 +1,21 @@
-import React, { useContext } from 'react'
-import Producto from './Producto'
-import { CartContext } from '../context/CartContext'
+import React, { useContext } from "react";
+import Producto from "./Producto";
+import { CartContext } from "../context/CartContext";
 
 const ListaProducto = () => {
-
-  const { productos } = useContext(CartContext)
+  const { productosFiltrados, busqueda, setBusqueda } = useContext(CartContext);
 
   return (
-    <div style={{display:'flex', flexWrap:'wrap', justifyContent:'space-evenly'}}>
-      {productos.map(producto =>(
-        <Producto key={producto.id} producto={producto} />
-      ))}
-    </div>
-  )
-}
+    <>
+      <input type="text" placeholder="Buscar productos..." value={busqueda} 
+        onChange={(e) => setBusqueda(e.target.value)} />
+      <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-evenly",}}>
+      {
+        productosFiltrados.map((producto) => (<Producto key={producto.id} producto={producto} />))
+      }
+      </div>
+    </>
+  );
+};
 
-export default ListaProducto
+export default ListaProducto;

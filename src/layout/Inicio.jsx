@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Header from '../components/estaticos/Header'
 import Footer from '../components/estaticos/Footer'
-import NotFound from '../components/NotFound'
+import NotFound from './NotFound'
 import inicioImg from './../assets/home4.jpg';
+import loading from './../assets/loading.gif'
+import { CartContext } from '../context/CartContext'
 
 const Inicio = () => {
   
+  const { cargando } = useContext(CartContext)
   const [error, setError] = useState(false)
 
   if (error) {
@@ -17,9 +20,10 @@ const Inicio = () => {
       <Header />
       
       <main className="container col-xxl-8 px-4 py-5">
+        { cargando ? <img src={loading} alt='loading' /> :
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
           <div className="col-10 col-sm-8 col-lg-6">
-            <img src={ inicioImg } className="d-block mx-lg-auto img-fluid" alt="Cervezas artesanales" loading="lazy"/>
+            <img src={ inicioImg } className="d-block mx-lg-auto img-fluid" alt="Cervezas artesanales" />
           </div>
           <div className="col-lg-6">
             <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">Nuestras Cervezas</h1>
@@ -31,6 +35,7 @@ const Inicio = () => {
               <div className="d-grid gap-2 d-md-flex justify-content-md-start"></div>
           </div>
         </div>
+        }
       </main>
 
       <Footer/>

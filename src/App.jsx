@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
 import './App.css';
 import Inicio from './layout/Inicio';
 import Contacto from './layout/Contacto';
 import Nosotros from './layout/Nosotros';
-import NotFound from './components/NotFound';
+import NotFound from './layout/NotFound';
 import GaleriaProductos from './layout/GaleriaProductos';
+import Login from './layout/Login';
+import Admin from './layout/Admin'
 import DetalleProducto from './components/DetalleProducto';
-import Login from './components/Login';
-import Admin from './components/Admin'
 import RutaProtegida from './auth/RutaProtegida';
 
 import { CartContext } from './context/CartContext';
