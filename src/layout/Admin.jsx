@@ -1,25 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import FormularioProducto from "../components/FormularioProducto";
+import FormularioEdicion from "../components/FormularioEdicion";
+import { CartContext } from "../context/CartContext";
+import { AdminContext } from "../context/AdminContext";
+import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
-  const [products, setProducts] = useState([]);
-  const [form, setForm] = useState({ id: null, name: "", price: "" });
-  const [loading, setLoading] = useState(true);
+  
+  const { setIsAuth } = useContext(CartContext);
 
-  useEffect(() => {
-    fetch("/data/data.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setTimeout(() => {
-          setProducts(data);
-          setLoading(false);
-        }, 2000);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setError(true);
-        setLoading(false);
-      });
-  }, []);
+  const {
+    productos,
+    loading,
+    open,
+    setOpen,
+    openEditor,
+    setOpenEditor,
+    seleccionado,
+    setSeleccionado,
+    agregarProducto,
+    actualizarProducto,
+    eliminarProducto,
+  } = useContext(AdminContext);
+
+  const navigate = useNavigate();
 
   return (
     <div className="container">
@@ -30,7 +34,14 @@ const Admin = () => {
           <nav>
             <ul className="nav">
               <li className="navItem">
-                <button className="navButton">
+                <button
+                  className="navButton"
+                  onClick={() => {
+                    setIsAuth(false);
+                    navigate("/");
+                    localStorage.removeItem("isAuth");
+                  }}
+                >
                   <i className="fa-solid fa-right-from-bracket"></i>
                 </button>
               </li>
@@ -40,27 +51,9 @@ const Admin = () => {
             </ul>
           </nav>
           <h1 className="title">Panel Administrativo</h1>
-          <form className="form">
-            <input
-              type="text"
-              name="name"
-              placeholder="Nombre del producto"
-              className="input"
-              required
-            />
-            <input
-              type="number"
-              name="price"
-              placeholder="Precio del producto"
-              className="input"
-              required
-            />
-            <button type="submit" className="button">
-              {form.id ? "Editar" : "Crear"}
-            </button>
-          </form>
+
           <ul className="list">
-            {products.map((product) => (
+            {productos.map((product) => (
               <li key={product.id} className="listItem">
                 <img
                   src={product.imagen}
@@ -70,15 +63,44 @@ const Admin = () => {
                 <span>{product.nombre}</span>
                 <span>${product.precio}</span>
                 <div>
-                  <button className="editButton">Editar</button>
+                  <button
+                    className="editButton"
+                    onClick={() => {
+                      setOpenEditor(true);
+                      setSeleccionado(product);
+                    }}
+                  >
+                    Editar
+                  </button>
 
-                  <button className="deleteButton">Eliminar</button>
+                  <button
+                    className="deleteButton"
+                    onClick={() => eliminarProducto(product.id)}
+                  >
+                    Eliminar
+                  </button>
                 </div>
               </li>
             ))}
           </ul>
         </>
       )}
+
+      <div className="bs-docs-section">
+        <div className="row">
+          <div className="well bs-component live-less-editor-hovercontainer" data-relatedvars="legend-color,legend-border-color,input-color,input-height-base,input-bg,input-border,input-border-radius,input-border-focus,input-color-placeholder,input-bg-disabled,input-height-small,input-height-large,state-success-text,state-success-bg,state-warning-text,state-warning-bg,state-danger-text,state-danger-bg,input-group-addon-bg,input-group-addon-border-color,input-border-radius-large,input-border-radius-small">
+              <button onClick={() => setOpen(true)} className="editButton">Agregar producto nuevo</button>
+              {open && <FormularioProducto onAgregar={agregarProducto} />}
+              {openEditor && (
+                <FormularioEdicion
+                productoSeleccionado={seleccionado}
+                onActualizar={actualizarProducto}
+                />
+              )}
+          </div>
+        </div>
+      </div>
+      
     </div>
   );
 };

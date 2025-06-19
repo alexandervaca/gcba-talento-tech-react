@@ -13,8 +13,11 @@ export const CartProvider = ({ children }) => {
 
   const [isCartOpen, setCartOpen] = useState(false);
 
+  const apiUrl = 'https://6812b215129f6313e20f49e2.mockapi.io/productos-ecommerce/api/v1/productos'
+
   useEffect(() => {
-    fetch('/data/data.json')
+    //fetch('/data/data.json')
+    fetch(apiUrl)
       .then(respuesta => respuesta.json())
       .then(datos => {
           setTimeout(() => {

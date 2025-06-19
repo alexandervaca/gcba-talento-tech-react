@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Producto from "./Producto";
 import { CartContext } from "../context/CartContext";
 
 const ListaProducto = () => {
   const { productosFiltrados, busqueda, setBusqueda } = useContext(CartContext);
+
+  const [currentPage, setCurrentPage] = useState(1)
+
 
   return (
     <>

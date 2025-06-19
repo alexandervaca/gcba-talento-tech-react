@@ -30,7 +30,9 @@ function App() {
 
         <Route path='/contacto' element={<Contacto />} />
 
-        <Route path='/admin' element={<RutaProtegida isAuthenticated={isAuthenticated}> <Admin /> </RutaProtegida> } />
+        <Route path='/admin' element={<RutaProtegida isAuthenticated={isAuthenticated}>
+          <Admin />
+        </RutaProtegida> } />
 
         <Route path='/ingreso' element={<Login />} />
 
