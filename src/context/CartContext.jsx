@@ -43,7 +43,7 @@ export const CartProvider = ({ children }) => {
       setCart(
         cart.map((item) =>
           item.id === producto.id
-            ? { ...item, cantidad: item.cantidad }
+            ? { ...item, cantidad: producto.cantidad }
             : item
         )
       );
@@ -79,8 +79,8 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{
-        cart,
+      value={
+        { cart,
         productos,
         cargando,
         error,
@@ -89,8 +89,8 @@ export const CartProvider = ({ children }) => {
         handleAddToCart,
         isAuthenticated,
         setIsAuth,
-        productosFiltrados, busqueda, setBusqueda
-      }}>
+        productosFiltrados, busqueda, setBusqueda }
+      }>
       {children}
     </CartContext.Provider>
   );

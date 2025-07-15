@@ -5,7 +5,6 @@ import './styleEstatico.css'
 import logo from '../../assets/beer-svgrepo-com.svg'
 import Carrito from '../Carrito'
 import { CartContext } from '../../context/CartContext'
-//import { FaShoppingCart }from 'react-icons/fa'
 
 const Header = () => {
   const { cart } = useContext(CartContext)
