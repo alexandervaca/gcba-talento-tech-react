@@ -58,6 +58,7 @@ function FormularioProducto({ onAgregar }) {
           {errores.nombre && <p style={{ color: "red" }}>{errores.nombre}</p>}
         </div>
       </div>
+      
       <div className="form-group">
         <label for="precio" className="col-lg-2 control-label">Precio:</label>
         <div class="col-lg-10">
@@ -86,7 +87,7 @@ function FormularioProducto({ onAgregar }) {
       </div>
 
       <div className="form-group">
-        <label for="categoria" className="col-lg-2 control-label">Categoría:</label>
+        <label for="categoria" className="col-lg-2 control-label">Categoria:</label>
         <div className="col-lg-10">
           <input type="text" name="categoria" className="form-control"
             value={producto.categoria || ""} onChange={handleChange} required />

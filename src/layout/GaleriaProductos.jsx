@@ -1,18 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import Header from '../components/estaticos/Header'
 import Footer from '../components/estaticos/Footer'
 import ListaProducto from '../components/ListaProducto'
 import loading from '../assets/loading.gif'
-import NotFound from './NotFound'
 import { CartContext } from '../context/CartContext'
 
 const GaleriaProductos = () => {
-  const [error, setError] = useState(false)
   const { cargando } = useContext(CartContext)
-
-  if (error) {
-    return <NotFound/>
-  }
    
   return (
     <>

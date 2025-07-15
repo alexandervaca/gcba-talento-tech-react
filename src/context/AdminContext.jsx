@@ -40,7 +40,6 @@ export const AdminProvider = ({ children }) => {
   const agregarProducto = async (producto) => {
     try {
       const respuesta = await fetch(
-        //"https://6812b215129f6313e20f49e2.mockapi.io/productos-ecommerce/api/v1/productos",
         apiUrl,
         {
           method: "POST",
@@ -50,10 +49,13 @@ export const AdminProvider = ({ children }) => {
           body: JSON.stringify(producto),
         }
       );
+      
       if (!respuesta.ok) {
         throw new Error("Error al agregar producto");
       }
+      
       const data = await respuesta.json();
+
       Swal.fire({
         title: ":)!",
         text: "Producto agregado correctamente!",
@@ -61,8 +63,14 @@ export const AdminProvider = ({ children }) => {
       });
       cargarProductos();
       setOpen(false);
+      
     } catch (error) {
       console.log(error.message);
+      Swal.fire({
+        title: ":(!",
+        text: "Hubo un problema al agregar el producto!",
+        icon: "error",
+      });
     }
   };
 
@@ -75,14 +83,26 @@ export const AdminProvider = ({ children }) => {
         },
         body: JSON.stringify(producto),
       });
+      
       if (!respuesta.ok) throw Error("Error al actualizar el producto");
       const data = await respuesta.json();
-      alert("Producto actualizado correctamente");
+      
+      Swal.fire({
+        title: ":)!",
+        text: "Producto actualizado correctamente!",
+        icon: "success",
+      });
+
       setOpenEditor(false);
       setSeleccionado(null);
       cargarProductos();
     } catch (error) {
       console.log(error.message);
+      Swal.fire({
+        title: ":(!",
+        text: "Hubo un problema al actualizar el producto!",
+        icon: "error",
+      });
     }
   };
 
@@ -90,7 +110,6 @@ export const AdminProvider = ({ children }) => {
     const confirmar = window.confirm("Estas seguro de eliminar el producto?");
     if (confirmar) {
       try {
-        //https://6812b215129f6313e20f49e2.mockapi.io/productos-ecommerce/api/v1/productos
         const respuesta = await fetch(
           `${apiUrl}/${id}`,
           {
@@ -100,13 +119,18 @@ export const AdminProvider = ({ children }) => {
         if (!respuesta.ok) throw Error("Error al eliminar");
 
         Swal.fire({
-          title: ":(!",
+          title: ":)!",
           text: "Producto Eliminado correctamente!",
-          icon: "error",
+          icon: "success",
         });
         cargarProductos();
       } catch (error) {
-        alert("Hubo un problema al eliminar el producto");
+        console.log(error.message);
+        Swal.fire({
+          title: ":(!",
+          text: "Hubo un problema al eliminar el producto!",
+          icon: "error",
+        });
       }
     }
   };
